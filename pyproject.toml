@@ -1,0 +1,17 @@
+[project]
+name = "oop-finalproject"
+version = "0.1.0"
+description = "Zombie Survival Dead Zone - A Pygame-based survival shooter built with OOP and SOLID principles."
+readme = "README.md"
+requires-python = ">=3.10"
+
+authors = [
+    { name = "Kasemsak Kaenthon" , email = "kasemsak.ke.68@ubu.ac.th"},
+    { name = "Nattakorn Wantasuk", email = "nattakorn.wa.68@ubu.ac.th"}
+]
+
+keywords = ["pygame", "game", "oop", "solid", "zombie", "survival"]
+
+dependencies = [
+    "pygame>=2.6.1",
+]

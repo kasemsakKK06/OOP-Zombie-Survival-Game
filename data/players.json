@@ -1,0 +1,32 @@
+{
+  "players": [
+    {
+      "username": "mark",
+      "password": "12345",
+      "best_score": 919,
+      "games_played": 3,
+      "total_kills": 69
+    },
+    {
+      "username": "Man",
+      "password": "12345",
+      "best_score": 1084,
+      "games_played": 3,
+      "total_kills": 84
+    },
+    {
+      "username": "za",
+      "password": "12345",
+      "best_score": 4901,
+      "games_played": 6,
+      "total_kills": 356
+    },
+    {
+      "username": "ma",
+      "password": "12345",
+      "best_score": 0,
+      "games_played": 0,
+      "total_kills": 0
+    }
+  ]
+}
