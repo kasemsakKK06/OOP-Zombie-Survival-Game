@@ -16,6 +16,7 @@ SOLID Principle — DIP (Dependency Inversion Principle):
 
 import json
 import os
+import hashlib
 from core.settings import DATA_FILE
 
 
@@ -60,6 +61,10 @@ class PlayerRepository:
         """
         self._file_handler = file_handler
 
+    def _hash_password(self, password):
+        """Helper: แปลงรหัสผ่านเป็น SHA-256 เพื่อความปลอดภัย"""
+        return hashlib.sha256(password.encode()).hexdigest()
+
     def get_player(self, username):
         """SRP: method นี้ทำหน้าที่เดียว คือ ค้นหาผู้เล่นจากชื่อ"""
         data = self._file_handler.load()
@@ -77,7 +82,7 @@ class PlayerRepository:
         data["players"].append(
             {
                 "username": username,
-                "password": password,
+                "password": self._hash_password(password),
                 "best_score": 0,
                 "games_played": 0,
                 "total_kills": 0,
@@ -85,6 +90,13 @@ class PlayerRepository:
         )
         self._file_handler.save(data)
         return True, "สมัครสมาชิกสำเร็จ!"
+
+    def validate_login(self, username, password):
+        """SRP: ตรวจสอบชื่อผู้ใช้และรหัสผ่าน (ใช้ Hash Comparison)"""
+        p = self.get_player(username)
+        if p and p["password"] == self._hash_password(password):
+            return p
+        return None
 
     def update_score(self, username, score, kills):
         """SRP: method นี้ทำหน้าที่เดียว คือ อัปเดตคะแนนของผู้เล่น"""
@@ -127,6 +139,11 @@ def get_player(username):
 def register_player(username, password):
     """Backward compatible: เรียกผ่าน PlayerRepository"""
     return _default_repo.register_player(username, password)
+
+
+def validate_login(username, password):
+    """Backward compatible: เรียกผ่าน PlayerRepository"""
+    return _default_repo.validate_login(username, password)
 
 
 def update_score(username, score, kills):
