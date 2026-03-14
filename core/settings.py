@@ -46,5 +46,5 @@ GAME_SETTINGS = {
 # SRP: ส่วนนี้ดูแลการสร้างหน้าต่างเกมเท่านั้น
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
-pygame.display.set_caption("Zombie Survival")
+pygame.display.set_caption("Zombie Survival: DEAD ZONE")
 clock = pygame.time.Clock()
