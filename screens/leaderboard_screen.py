@@ -68,6 +68,7 @@ def screen_leaderboard():
         events = pygame.event.get()
         mx, my = pygame.mouse.get_pos()
         back.update(mx, my)
+
         # Hover Sound Logic
         if back.rect.collidepoint(mx, my):
             if not getattr(back, "sound_hovered", False):

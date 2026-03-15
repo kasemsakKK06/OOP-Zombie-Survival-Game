@@ -62,7 +62,6 @@ class PlayerRepository:
         self._file_handler = file_handler
 
     def _hash_password(self, password):
-        """Helper: แปลงรหัสผ่านเป็น SHA-256 เพื่อความปลอดภัย"""
         return hashlib.sha256(password.encode()).hexdigest()
 
     def get_player(self, username):
@@ -79,6 +78,7 @@ class PlayerRepository:
         for p in data["players"]:
             if p["username"].lower() == username.lower():
                 return False, "ชื่อผู้ใช้นี้มีอยู่แล้ว"
+
         data["players"].append(
             {
                 "username": username,

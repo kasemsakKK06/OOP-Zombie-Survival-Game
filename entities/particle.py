@@ -16,19 +16,14 @@ import math
 
 
 class Particle:
-    """
-    Base particle class
-    """
+    """Base particle class"""
 
     def __init__(self, x, y, color):
-        # position
         self.x, self.y = float(x), float(y)
 
-        # velocity
         self.vx = random.uniform(-3, 3)
         self.vy = random.uniform(-4, 1)
 
-        # lifetime
         self.life = random.randint(20, 40)
 
         self.color = color
@@ -86,10 +81,8 @@ class BloodParticle(Particle):
         self.vy += self.gravity
         self.life -= 1
 
-        # air resistance
         self.vx *= 0.98
 
-        # shrink over time
         self.size = max(0, self.size - 0.08)
 
     def draw(self, surf):

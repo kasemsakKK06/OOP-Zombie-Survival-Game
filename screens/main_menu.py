@@ -57,11 +57,11 @@ def screen_main_menu(current_user):
     # Load Hover Sound
     hover_sfx = None
     base_path = os.path.dirname(os.path.dirname(__file__))
+
     # โหลดไฟล์ Menu_hover.wav โดยตรง
     s_path = os.path.join(base_path, "assets", "sound", "Menu_hover.wav")
     if os.path.exists(s_path):
-        # ลบ try-except เพื่อให้เห็น Error ถ้าไฟล์มีปัญหา
-        print(f"Loading sound from: {s_path}")  # Debug print
+        print(f"Loading sound from: {s_path}")
         hover_sfx = pygame.mixer.Sound(s_path)
         hover_sfx.set_volume(0.5 * GAME_SETTINGS["sfx_volume"])
 
@@ -104,6 +104,7 @@ def screen_main_menu(current_user):
         ]:
 
             btn.update(mx, my)
+
             # Hover Sound Logic
             if btn.rect.collidepoint(mx, my):
                 if not getattr(btn, "sound_hovered", False):
@@ -168,6 +169,7 @@ def screen_main_menu(current_user):
         if random.random() < 0.3:  # โอกาสเกิด 30% ต่อเฟรม
             px = random.randint(0, SCREEN_W)
             py = random.randint(0, SCREEN_H)
+
             # สุ่มสี: เขียวพิษ, แดงเลือด, หรือเทาเขม่า
             p_color = random.choice([LIME, RED, (60, 60, 60)])
             particles.append(Particle(px, py, p_color))
@@ -192,6 +194,7 @@ def screen_main_menu(current_user):
 
         draw_panel(screen, (SCREEN_W // 2 - 190, 195, 380, 65), color=(0, 25, 5))
         if current_user:
+
             # DIP: เรียก get_player ผ่าน abstraction function
             p = get_player(current_user)
             bs = p["best_score"] if p else 0

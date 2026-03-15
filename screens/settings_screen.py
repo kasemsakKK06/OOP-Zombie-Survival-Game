@@ -59,6 +59,7 @@ class Slider:
     def draw(self, surf):
         # Background track
         pygame.draw.rect(surf, (40, 40, 40), self.rect, border_radius=10)
+
         # Fill
         fill_w = int(self.rect.width * self.val)
         if fill_w > 0:
@@ -175,7 +176,6 @@ def screen_settings():
             cy + 25,
         )
         sfx_slider.draw(screen)
-
         back_btn.draw(screen)
 
         pygame.display.flip()

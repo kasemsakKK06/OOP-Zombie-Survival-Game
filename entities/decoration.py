@@ -15,14 +15,11 @@ import random
 
 
 class Decoration(pygame.sprite.Sprite):
-    """
-    Base class สำหรับ object ตกแต่งฉาก
-    """
+    """Base class สำหรับ object ตกแต่งฉาก"""
 
     def __init__(self, x, y, width, height, dec_type="grass"):
         super().__init__()
 
-        # decoration ไม่มี collision
         self.collidable = False
 
         self.image = pygame.Surface((width, height), pygame.SRCALPHA)
@@ -62,20 +59,14 @@ class Decoration(pygame.sprite.Sprite):
 
 
 class Grass(Decoration):
-    """
-    LSP:
-    Grass เป็น Decoration ชนิดหนึ่ง
-    """
+    """LSP: Grass เป็น Decoration ชนิดหนึ่ง"""
 
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height, "grass")
 
 
 class Road(Decoration):
-    """
-    LSP:
-    Road เป็น Decoration ชนิดหนึ่ง
-    """
+    """LSP: Road เป็น Decoration ชนิดหนึ่ง"""
 
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height, "road")

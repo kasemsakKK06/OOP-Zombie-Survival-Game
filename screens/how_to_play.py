@@ -25,9 +25,7 @@ from screens.main_menu import draw_bg
 
 
 def screen_how_to_play():
-    """
-    แสดงหน้าจอวิธีการเล่น (Controls)
-    """
+    """แสดงหน้าจอวิธีการเล่น (Controls)"""
     tick = 0
     # Load Hover Sound
     hover_sfx = None
@@ -52,6 +50,7 @@ def screen_how_to_play():
         mx, my = pygame.mouse.get_pos()
 
         back_btn.update(mx, my)
+
         # Hover Sound Logic
         if back_btn.rect.collidepoint(mx, my):
             if not getattr(back_btn, "sound_hovered", False):

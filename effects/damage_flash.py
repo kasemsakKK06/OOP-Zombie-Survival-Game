@@ -19,11 +19,9 @@ class DamageFlash:
     """
 
     def __init__(self, screen_size):
-        # ระยะเวลา effect (frame)
         self.max_duration = 20
         self.duration = 0
 
-        # surface โปร่งใสสำหรับ overlay
         self.surface = pygame.Surface(screen_size, pygame.SRCALPHA)
 
     def trigger(self):
@@ -34,13 +32,10 @@ class DamageFlash:
         """อัปเดตความจางของ effect"""
         if self.duration > 0:
 
-            # คำนวณ alpha ให้ค่อย ๆ จางลง
             alpha = int(120 * (self.duration / self.max_duration))
 
-            # reset surface
             self.surface.fill((0, 0, 0, 0))
 
-            # เติมสีแดงแบบโปร่งใส
             self.surface.fill((255, 0, 0, alpha))
 
             self.duration -= 1

@@ -66,6 +66,7 @@ def screen_login():
 
     mode = "login"
     msg, msg_color, msg_timer = "", WHITE, 0
+
     # DIP: ใช้ InputBox, Button (abstractions) จัดการ UI
     user_box = InputBox(SCREEN_W // 2 - 145, 285, 290, 42, "ชื่อผู้ใช้")
     pass_box = InputBox(SCREEN_W // 2 - 145, 352, 290, 42, "รหัสผ่าน", password=True)
@@ -82,6 +83,7 @@ def screen_login():
             msg_timer -= 1
         for btn in [tab_l, tab_r, ok_btn, back]:
             btn.update(mx, my)
+
             # Hover Sound Logic
             if btn.rect.collidepoint(mx, my):
                 if not getattr(btn, "sound_hovered", False):
@@ -117,6 +119,7 @@ def screen_login():
             submit = ok_btn.clicked(event) or (
                 event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN
             )
+
             if submit:
                 if GAME_SETTINGS["sfx_volume"] > 0 and click_sfx:
                     click_sfx.set_volume(1.0 * GAME_SETTINGS["sfx_volume"])
@@ -126,6 +129,7 @@ def screen_login():
                 if not u or not p:
                     msg, msg_color, msg_timer = "กรุณากรอกให้ครบทุกช่อง!", ORANGE, 150
                 elif mode == "login":
+
                     # DIP: เรียก get_player ผ่าน abstraction function
                     pl = get_player(u)
                     if pl and pl["password"] == p:
@@ -136,6 +140,7 @@ def screen_login():
                     else:
                         msg, msg_color, msg_timer = "ชื่อหรือรหัสผ่านไม่ถูกต้อง!", RED, 150
                 else:
+
                     # DIP: เรียก register_player ผ่าน abstraction function
                     ok, txt = register_player(u, p)
                     msg, msg_color, msg_timer = txt, GREEN if ok else RED, 150

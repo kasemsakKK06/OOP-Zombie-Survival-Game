@@ -50,31 +50,22 @@ def main():
     OCP: เพิ่ม state ใหม่ได้โดยเพิ่ม elif block โดยไม่แก้ state เดิม
     """
 
-    # Game State Machine
-    # state ใช้ควบคุม flow ของหน้าจอทั้งหมดในเกม
-    # แต่ละ state จะ delegate ไปยัง screen module ที่เกี่ยวข้อง
+    # Game State Machine ใช้ควบคุม flow ของหน้าจอทั้งหมดในเกม
     current_user = None
     state = "menu"
 
     # --- Music Management ---
     # โหลด path ของเพลงสำหรับแต่ละ state
-    # แยก menu music และ gameplay music
-    # current_playing_path ใช้ตรวจว่าเพลงปัจจุบันตรงกับ state หรือไม่
     menu_music_path = find_music_path("main_soundtrack")  # Soundtrack ตอนเปิดเกม
     game_music_path = find_music_path("Dirty_soundtrack")  # Soundtrack ตอนเล่นเกม
     current_playing_path = None
 
-    # Main Game Loop
-    # ลูปหลักของโปรแกรม ทำหน้าที่:
-    # 1. จัดการ background music ตาม state
-    # 2. เรียก screen หรือ game logic ตาม state ปัจจุบัน
+    # Main Game Loop ลูปหลักของโปรแกรม
     while True:
         # --- Music State Machine ---
         # 1. Determine which music should be playing based on game state
-
         # กำหนดว่า state ปัจจุบันควรเล่นเพลงอะไร
-        # menu states -> menu music
-        # gameplay -> game music
+
         target_path = None
         if state in ("menu", "login", "leaderboard", "how_to_play", "settings"):
             target_path = menu_music_path
@@ -99,11 +90,10 @@ def main():
                 else:  # No target song for this state
                     pygame.mixer.music.stop()
                     current_playing_path = None
-            # If the right song is loaded but was stopped (e.g. volume was 0), restart it.
+
             elif target_path and not pygame.mixer.music.get_busy():
                 pygame.mixer.music.play(-1, fade_ms=500)
 
-        # 3. Always apply the current volume setting
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.set_volume(GAME_SETTINGS["music_volume"])
 
@@ -137,8 +127,7 @@ def main():
                 state = "login"
                 continue
 
-            # จำ play mode ไว้
-            # เพื่อให้ restart กลับมาเริ่มเกมใหม่ใน mode เดิม
+            # จำ play mode ไว้ เพื่อให้ restart กลับมาเริ่มเกมใหม่ใน mode เดิม
             play_state = state
 
             if play_state == "play_guest":
@@ -146,10 +135,7 @@ def main():
             else:
                 game = Game(current_user)
 
-            # Game Loop
-            # ลูปหลักของเกม ทำหน้าที่:
-            # 1. จัดการ background music ตาม state
-            # 2. เรียก screen หรือ game logic ตาม state ปัจจุบัน
+            # Game Loop ลูปหลักของเกม ทำหน้าที่:
             while True:
                 events = pygame.event.get()
                 action = game.handle_input(events)

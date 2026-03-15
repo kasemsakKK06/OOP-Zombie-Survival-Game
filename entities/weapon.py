@@ -82,7 +82,7 @@ class Shotgun(Weapon):
         super().__init__(
             name="Shotgun",
             shoot_cd=40,
-            damage=15,  # ต่อ 1 กระสุนย่อย (จะยิงออกไปหลายนัดพร้อมกันใน game.py)
+            damage=15,  # ต่อ 1 กระสุนย่อย
             auto_fire=False,
             is_melee=False,
         )

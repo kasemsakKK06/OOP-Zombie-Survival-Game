@@ -27,9 +27,6 @@ class PowerUp(pygame.sprite.Sprite):
     """
 
     # OCP: เพิ่มประเภท power-up ใหม่ได้โดยเพิ่ม dict เข้า list นี้
-    # OCP + Data-Driven Design:
-    # ประเภทของ power-up ถูกกำหนดเป็นข้อมูล
-    # ทำให้สามารถเพิ่มชนิดใหม่ได้โดยไม่ต้องแก้ logic ของ class
     TYPES = [
         {"label": "HP", "color": RED, "effect": "hp"},
         {"label": "SPD", "color": CYAN, "effect": "speed"},

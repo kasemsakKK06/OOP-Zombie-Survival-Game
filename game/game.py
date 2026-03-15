@@ -269,6 +269,7 @@ class HUDRenderer:
 
         # Pause button — ปุ่มหยุดมุมขวาบน
         game.pause_btn.draw(surf)
+
         # Draw || icon on pause button
         pb = game.pause_btn.rect
         bx = pb.x + 8
@@ -336,6 +337,7 @@ class HUDRenderer:
         total_w = icon_total_w + spacing + title_w
         start_x = cx - total_w // 2
         icon_y = panel_y + 20
+
         # Draw || bars
         pygame.draw.rect(surf, WHITE, (start_x, icon_y, bar_w, bar_h), border_radius=2)
         pygame.draw.rect(
@@ -344,9 +346,11 @@ class HUDRenderer:
             (start_x + bar_w + bar_gap, icon_y, bar_w, bar_h),
             border_radius=2,
         )
+
         # Draw title text (left-aligned after icon)
         text_x = start_x + icon_total_w + spacing
         text_y = panel_y + 30 - title_surf.get_height() // 2
+
         # Shadow
         shadow = font_med.render(title_text, True, (0, 0, 0))
         surf.blit(shadow, (text_x + 2, text_y + 2))
@@ -392,7 +396,7 @@ class HUDRenderer:
         game.restart_btn.draw(surf)
         game.quit_p_btn.draw(surf)
 
-        # Icon: ▶ triangle on resume button
+        # Icon:
         rb = game.resume_btn.rect
         tri_x = rb.x + 18
         tri_y = rb.centery
@@ -493,7 +497,7 @@ class Game:
         self.between_timer = 180
         self.game_over = False
         self.paused = False
-        self.slash_effects = []  # เก็บเอฟเฟกต์ฟันมีด
+        self.slash_effects = []
         self.map_rect = pygame.Rect(0, 92, SCREEN_W, SCREEN_H - 92)
         self.player = Player(SCREEN_W // 2, SCREEN_H // 2)
         self.zombies = pygame.sprite.Group()
@@ -766,8 +770,6 @@ class Game:
             forward_offset = 34
 
         # 2. ระยะห่างด้านข้าง (Side Offset)
-        # ถ้ากระสุนอยู่ "ล่าง" ไป (ต่ำกว่าปืน) ให้ ลดค่านี้ลง (เช่น 15 -> 5 หรือ -5)
-        # ถ้ากระสุนอยู่ "บน" ไป (สูงกว่าปืน) ให้ เพิ่มค่านี้
         side_offset = 12
 
         # สูตรคำนวณพิกัด (Vector Rotation)
@@ -1096,8 +1098,6 @@ class Game:
                 self._spawn_manager.spawn_wave(self.wave, self.zombies)
 
         # ปรับความเร็วการเดินของคน
-        # ความเร็วตอนได้บัพรองเท้าวิ่งเร็ว (ค่าเดิม 5.5 ปรับเป็น 3.5)
-        # ความเร็วปกติ (ค่าเดิม 3.5 ปรับเป็น 2.0)
         self.player.speed = 6.5 if self.speed_boost > 0 else 4.0
         if self.speed_boost > 0:
             self.speed_boost -= 1
@@ -1164,8 +1164,6 @@ class Game:
                 fx["frame"] += fx.get("speed", 0.5)
 
                 # --- แก้ให้เอฟเฟกต์เกาะติดตัวผู้เล่น (Move with player) ---
-                # อัปเดตมุมให้หมุนตามหน้าตัวละครตลอดเวลา (Sync with player facing)
-                # ต้องแปลงมุม Player เป็น Screen Radians เพื่อคำนวณตำแหน่ง
                 current_rad = -math.radians(self.player.angle)
                 fx["angle"] = current_rad
 
@@ -1220,6 +1218,7 @@ class Game:
 
             # เริ่มกวาดจากด้านหนึ่งไปอีกด้านหนึ่ง
             start_a = base_angle - sweep / 2
+
             # มุมที่ปลายกวาดถึงตอนนี้ (เร็วกว่าเดิมนิดนึง)
             current_sweep = sweep * (progress**0.8)
             end_a = start_a + current_sweep
@@ -1318,6 +1317,7 @@ class Game:
             is_day = ((self.wave - 1) // 3) % 2 == 1
             bg_col = (60, 70, 60) if is_day else DARK
             screen.fill(bg_col)
+
             # Fallback: Color Interpolation (เปลี่ยนสีพื้นหลังแบบไล่เฉด)
             c_night = (15, 20, 15)
             c_day = (60, 70, 60)

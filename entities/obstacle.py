@@ -14,9 +14,7 @@ import pygame
 
 
 class Obstacle(pygame.sprite.Sprite):
-    """
-    Entity สำหรับสิ่งกีดขวางในแผนที่
-    """
+    """Entity สำหรับสิ่งกีดขวางในแผนที่"""
 
     def __init__(self, x, y, width, height, color=(100, 100, 100)):
         super().__init__()

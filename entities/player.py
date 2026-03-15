@@ -43,9 +43,9 @@ class Player(pygame.sprite.Sprite):
             if os.path.isdir(folder_path):
 
                 if weapon_name == "Knife":
-                    frames = self._load_frames(folder_path, (64, 64))  # มีดใหญ่
+                    frames = self._load_frames(folder_path, (64, 64))
                 else:
-                    frames = self._load_frames(folder_path, (48, 48))  # ปืนปกติ
+                    frames = self._load_frames(folder_path, (48, 48))
 
             else:
                 fallback = os.path.join(base_path, "assets", "images", "move_handgun")
@@ -104,21 +104,18 @@ class Player(pygame.sprite.Sprite):
         self.angle = 0
 
     def _load_frames(self, folder_path, size=(48, 48)):
+        """SRP: method นี้รับผิดชอบเฉพาะการโหลด sprite frames
+        และเตรียม animation ของตัวละคร
         """
-        SRP:
-            method นี้รับผิดชอบเฉพาะการโหลด sprite frames
-            และเตรียม animation ของตัวละคร
-        """
+
         """โหลด sprite frames จากโฟลเดอร์ที่กำหนด"""
         frames = []
         try:
-            # พยายามเรียงตามตัวเลขหลัง '_' เช่น 'move_0.png', 'move_1.png'
             file_list = sorted(
                 os.listdir(folder_path),
                 key=lambda f: int(f.split("_")[-1].split(".")[0]),
             )
         except (ValueError, IndexError):
-            # ถ้าเรียงไม่ได้ (เช่น ไม่มี '_') ให้เรียงตามชื่อไฟล์ปกติ
             file_list = sorted(os.listdir(folder_path))
 
         for file in file_list:
@@ -188,9 +185,6 @@ class Player(pygame.sprite.Sprite):
         if self.hitbox.bottom > map_rect.bottom:
             self.hitbox.bottom = map_rect.bottom
 
-        # Composition:
-        # Player ใช้ Obstacle objects เพื่อจัดการ collision
-        # โดยไม่ได้รวม logic ของ obstacle ไว้ใน Player
         for obs in obstacles:
             if self.hitbox.colliderect(obs.rect):
                 if dy > 0:
@@ -227,14 +221,11 @@ class Player(pygame.sprite.Sprite):
 
         # หมุนเท้าตามทิศทางของเมาส์ โดยใช้ sprite ซ้าย/ขวา ให้ถูกต้อง
         if self.feet_right_frames and self.feet_left_frames:
-            # Right hemisphere: -90 to 90 degrees
             if -90 <= self.angle <= 90:
                 base_feet_image = self.feet_right_frames[int(self.feet_frame_index)]
                 self.feet_image = pygame.transform.rotate(base_feet_image, self.angle)
-            # Left hemisphere
             else:
                 base_feet_image = self.feet_left_frames[int(self.feet_frame_index)]
-                # ชดเชยมุมสำหรับ sprite ที่หันไปทางซ้าย (180 องศา) อยู่แล้ว
                 adjusted_angle = self.angle - 180
                 self.feet_image = pygame.transform.rotate(
                     base_feet_image, adjusted_angle
@@ -268,11 +259,8 @@ class Player(pygame.sprite.Sprite):
         """
 
         if self.shoot_cd == 0:
-
             mouse_x, mouse_y = pygame.mouse.get_pos()
-
             bullet = Bullet(self.rect.centerx, self.rect.centery, mouse_x, mouse_y)
-
             bullets.add(bullet)
 
             self.shoot_cd = 10
