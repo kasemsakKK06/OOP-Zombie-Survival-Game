@@ -24,7 +24,6 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super().__init__()
-        self.angle = 0
 
         base_path = os.path.dirname(os.path.dirname(__file__))
 
@@ -102,6 +101,7 @@ class Player(pygame.sprite.Sprite):
         self.hp = 100
         self.speed = 3.5
         self.shoot_cd = 0
+        self.angle = 0
 
     def _load_frames(self, folder_path, size=(48, 48)):
         """
